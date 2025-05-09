@@ -7,7 +7,7 @@ import data.builtin.google.dns.google0013 as check
 test_deny_dns_sec_disabled if {
 	inp := build_input({
 		"visibility": {"value": "public"},
-		"dnssec": {"enabled": {"value": false}},
+		"dnssec_config": {"state": "off"},
 	})
 
 	res := check.deny with input as inp
@@ -17,7 +17,7 @@ test_deny_dns_sec_disabled if {
 test_allow_dns_sec_enabled if {
 	inp := build_input({
 		"visibility": {"value": "public"},
-		"dnssec": {"enabled": {"value": true}},
+		"dnssec_config": {"state": "on"},
 	})
 
 	check.deny with input as inp == set()
@@ -26,7 +26,7 @@ test_allow_dns_sec_enabled if {
 test_allow_dns_sec_disabled_for_private_zone if {
 	inp := build_input({
 		"visibility": {"value": "private"},
-		"dnssec": {"enabled": {"value": false}},
+		"dnssec_config": {"state": "off"},
 	})
 
 	check.deny with input as inp == set()

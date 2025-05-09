@@ -27,6 +27,6 @@ import rego.v1
 deny contains res if {
 	some zone in input.google.dns.managedzones
 	zone.visibility.value != "private"
-	zone.dnssec.enabled.value == false
+	zone.dnssec_config.state == "on"
 	res := result.new("Managed zone does not have DNSSEC enabled.", zone.dnssec.enabled)
 }
